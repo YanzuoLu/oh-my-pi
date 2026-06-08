@@ -443,7 +443,7 @@ function inferGeneratedApplyPatchToolType(
 	if (model.provider === "openai" && model.api === "openai-responses") {
 		return "freeform";
 	}
-	if (model.provider === "openai-codex" && model.api === "openai-codex-responses") {
+	if (model.api === "openai-codex-responses") {
 		return "freeform";
 	}
 	return undefined;

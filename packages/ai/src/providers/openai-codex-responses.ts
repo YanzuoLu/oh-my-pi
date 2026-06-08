@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import * as os from "node:os";
 import { scheduler } from "node:timers/promises";
 import {
@@ -2747,10 +2748,8 @@ function resolveCodexResponsesUrl(baseUrl: string | undefined): string {
 
 function getAccountId(accessToken: string): string {
 	const accountId = getCodexAccountId(accessToken);
-	if (!accountId) {
-		throw new Error("Failed to extract accountId from token");
-	}
-	return accountId;
+	if (accountId) return accountId;
+	return `opaque-${createHash("sha256").update(accessToken).digest("base64url").slice(0, 16)}`;
 }
 
 function convertMessages(model: Model<"openai-codex-responses">, context: Context): ResponseInput {

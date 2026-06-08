@@ -69,7 +69,7 @@ export interface RemoteCompactionResponse {
 // ============================================================================
 
 export function shouldUseOpenAiRemoteCompaction(model: Model): boolean {
-	return model.provider === "openai" || model.provider === "openai-codex";
+	return model.provider === "openai" || model.provider === "openai-codex" || model.api === "openai-codex-responses";
 }
 
 function resolveOpenAiCompactEndpoint(model: Model): string {
