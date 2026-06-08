@@ -2673,7 +2673,9 @@ function createCodexHeaders(
 	const headers = new Headers(initHeaders ?? {});
 	headers.delete("x-api-key");
 	headers.set("Authorization", `Bearer ${accessToken}`);
-	headers.set(OPENAI_HEADERS.ACCOUNT_ID, accountId);
+	if (!accountId.startsWith("opaque-")) {
+		headers.set(OPENAI_HEADERS.ACCOUNT_ID, accountId);
+	}
 	const betaHeader =
 		transport === "websocket"
 			? OPENAI_HEADER_VALUES.BETA_RESPONSES_WEBSOCKETS_V2
